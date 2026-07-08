@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fox Task Scheduling Login</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body class="login-page">
+<main class="login-panel">
+    <h1>Fox Task Scheduling</h1>
+    <p>Sign in to manage task definitions, schedules, and execution history.</p>
+    <form th:action="@{/login}" method="post" class="login-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <label>
+            Username
+            <input name="username" autocomplete="username" autofocus>
+        </label>
+        <label>
+            Password
+            <input name="password" type="password" autocomplete="current-password">
+        </label>
+        <button type="submit">Sign in</button>
+    </form>
+</main>
+</body>
+</html>
