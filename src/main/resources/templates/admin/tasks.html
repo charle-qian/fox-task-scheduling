@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Fox Task Scheduling</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<nav class="topbar">
+    <a th:href="@{/admin}" class="brand">Fox Task</a>
+    <a th:href="@{/admin/tasks}">Tasks</a>
+    <a th:href="@{/admin/executions}">Executions</a>
+    <a th:href="@{/swagger-ui.html}">Swagger</a>
+</nav>
+<main class="page">
+    <header class="page-header">
+        <h1>Task Management</h1>
+        <p>Task definitions, cron schedules, priorities, and rate limits.</p>
+    </header>
+    <section class="panel">
+        <table>
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Cron</th>
+                <th>Rate Limit</th>
+                <th>Handler</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.code}">sample.cleanup</td>
+                <td th:text="${task.name}">Sample Cleanup</td>
+                <td><span class="status" th:text="${task.status}">ENABLED</span></td>
+                <td th:text="${task.priority}">10</td>
+                <td th:text="${task.cronExpression}">0 0/5 * * * ?</td>
+                <td th:text="${task.rateLimitPerMinute}">30</td>
+                <td th:text="${task.handlerName}">noop</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

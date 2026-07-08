@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Fox Task Scheduling</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<nav class="topbar">
+    <a th:href="@{/admin}" class="brand">Fox Task</a>
+    <a th:href="@{/admin/tasks}">Tasks</a>
+    <a th:href="@{/admin/executions}">Executions</a>
+    <a th:href="@{/swagger-ui.html}">Swagger</a>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+<main class="page">
+    <header class="page-header">
+        <h1>Dashboard</h1>
+        <p>Runtime overview for the local task scheduling platform.</p>
+    </header>
+    <section class="metric-grid">
+        <div><strong th:text="${taskCount}">0</strong><span>Total Tasks</span></div>
+        <div><strong th:text="${enabledCount}">0</strong><span>Enabled</span></div>
+        <div><strong th:text="${pausedCount}">0</strong><span>Paused</span></div>
+        <div><strong th:text="${disabledCount}">0</strong><span>Disabled</span></div>
+    </section>
+    <section class="panel">
+        <h2>Recent Executions</h2>
+        <table>
+            <thead>
+            <tr><th>Task</th><th>Status</th><th>Trigger</th><th>Duration</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="execution : ${recentExecutions}">
+                <td th:text="${execution.taskCode}">sample.cleanup</td>
+                <td><span class="status" th:text="${execution.status}">SUCCESS</span></td>
+                <td th:text="${execution.triggerType}">SYSTEM</td>
+                <td th:text="${execution.durationMillis} + ' ms'">0 ms</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

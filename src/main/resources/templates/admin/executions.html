@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executions - Fox Task Scheduling</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<nav class="topbar">
+    <a th:href="@{/admin}" class="brand">Fox Task</a>
+    <a th:href="@{/admin/tasks}">Tasks</a>
+    <a th:href="@{/admin/executions}">Executions</a>
+    <a th:href="@{/swagger-ui.html}">Swagger</a>
+</nav>
+<main class="page">
+    <header class="page-header">
+        <h1>Execution History</h1>
+        <p>Recent scheduled, manual, and system-triggered task runs.</p>
+    </header>
+    <section class="panel">
+        <table>
+            <thead>
+            <tr>
+                <th>Task</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Trigger</th>
+                <th>Started</th>
+                <th>Duration</th>
+                <th>Error</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="execution : ${executions}">
+                <td th:text="${execution.taskCode}">sample.cleanup</td>
+                <td th:text="${execution.taskName}">Sample Cleanup</td>
+                <td><span class="status" th:text="${execution.status}">SUCCESS</span></td>
+                <td th:text="${execution.triggerType}">SYSTEM</td>
+                <td th:text="${execution.startedAt}">2026-07-08T00:00:00Z</td>
+                <td th:text="${execution.durationMillis} + ' ms'">0 ms</td>
+                <td th:text="${execution.errorMessage} ?: '-'">-</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
